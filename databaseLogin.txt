@@ -1,0 +1,4 @@
+username:marketmingle
+password:6mODVrpJ96kUET5w
+
+connectionString:mongodb+srv://marketmingle:6mODVrpJ96kUET5w@cluster0.dlwzq1d.mongodb.net/?retryWrites=true&w=majority
