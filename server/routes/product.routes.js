@@ -8,7 +8,6 @@ router.route('/api/products')
 .post(productController.addProduct)
 .delete(productController.removeAllProducts)
 
-
 router.route('/api/products/id/:id')
 .get(productController.getProductById)
 .put(productController.updateProductById)
