@@ -25,7 +25,7 @@ error: errorHandler.getErrorMessage(err)
 	})
 	} 
 	}
-	const userByID = async (req, res, next, id) => { 
+const userByID = async (req, res, next, id) => { 
 try {
 let user = await User.findById(id) 
 if (!user)
