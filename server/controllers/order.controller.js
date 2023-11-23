@@ -1,0 +1,27 @@
+import Order from '../models/order.model.js';
+import Cart from '../models/cart.model.js';
+import errorHandler from './error.controller.js'
+
+const createOrder=async(req,res)=>{
+    try{
+    //get cart
+    const cart = await Cart.findOne({user:req.auth._id});
+    
+    const order = new Order({
+        user:req.auth._id,
+        cart:cart._id,
+        shippingAddress:req.body.shippingAddress,
+        items:cart.items,
+        subtotal:cart.subtotal,
+        total:cart.total,
+        status:'Not Processed',
+        created:Date.now()
+    })
+    //save order to database & delete cart
+    await order.save()
+    await Cart.deleteOne({user:req.auth._id})
+    return res.status(200).json({message:"Order created successfully"});}
+    catch(err){
+        return res.status(400).json({error:errorHandler.getErrorMessage(err)});
+    }
+}

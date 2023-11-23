@@ -1,6 +1,7 @@
 import Cart from '../models/cart.model.js';
 import CartItem from '../models/cart.model.js';
 import Product from '../models/product.model.js';
+import errorHandler from './error.controller.js'
 
 const addToCart=async(req,res) => {
    try{
