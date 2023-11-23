@@ -2,7 +2,7 @@ import Cart from '../models/cart.model.js';
 import CartItem from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 import errorHandler from './error.controller.js'
-
+//Create/update cart-logic combined, cart is created if user adds item and no cart exists
 const addToCart=async(req,res) => {
    try{
     const taxRate=1.13;
@@ -38,6 +38,7 @@ const addToCart=async(req,res) => {
     return res.status(400).json({error: errorHandler.getErrorMessage(err)});
    }
 } 
+//Update/delete Cart- logic combined, cart is deleted when empty
 const removeFromCart=async(req,res)=>{
     try{
     const{productId}=req.params;
