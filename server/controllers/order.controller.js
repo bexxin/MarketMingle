@@ -9,7 +9,8 @@ const orderSchema = new mongoose.Schema({
         Province: {type: String,required:'Province is required'},
         PostalCode: {type: String, required: 'Postal Code is required'}
       },
-    created:{type:Date,default:Date.now}
+    created:{type:Date,default:Date.now},
+    status:{type:String,default:'Not processed', enum:['Not processed', 'Processing','Shipped','Delivered']}
 })
 const Order = mongoose.model('Order',orderSchema)
 export default Order;
