@@ -34,13 +34,34 @@ const addToCart=async(req,res) => {
     await cart.save();
     return res.status(200).json({message:"Product successfully added to cart."})
    }catch(err){
-    return res.status(400).json({
-        error: errorHandler.getErrorMessage(err)
-    })
+    return res.status(400).json({error: errorHandler.getErrorMessage(err)});
    }
 } 
+const removeFromCart=async(req,res)=>{
+    try{
+    const{productId}=req.params;
+    //Find user's cart
+    const cart = await Cart.findOne({user:req.auth._id});
+    //get index of item in the items array
+    const itemIndex = cart.items.findIndex(item => item.product.equals(productId));
+    //remove product from items array
+    cart.items.splice(itemIndex,1)
+    //save updated cart
+    await cart.save();
+    //Delete cart if it is empty
+    if(cart.items.length ===0){
+        await Cart.deleteOne({user:req.auth._id});
+        return res.status(200).json({message:"Your cart is now empty."});
+    } 
+    
+    return res.status(200).json({message:"Item successfully removed from cart."});
+       
 
-export default {addToCart};
+    }catch(err){
+        return res.status(400).json({error:errorHandler.getErrorMessage(err)});
+    }
+}
+export default {addToCart,removeFromCart};
 
 
 
