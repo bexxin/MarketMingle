@@ -25,3 +25,12 @@ const createOrder=async(req,res)=>{
         return res.status(400).json({error:errorHandler.getErrorMessage(err)});
     }
 }
+
+const updateOrder=async(req,res)=>{
+    //logic for admin to update order 
+}
+const deleteOrder=async(req,res)=>{
+    //logic for admin to delete order 
+}
+
+export default{createOrder}
