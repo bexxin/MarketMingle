@@ -1,9 +1,9 @@
 import Cart from '../models/cart.model.js';
-import CartItem from '../models/cart.model.js';
 import Product from '../models/product.model.js';
 import errorHandler from './error.controller.js'
 //Create/update cart-logic combined, cart is created if user adds item and no cart exists
 const addToCart=async(req,res) => {
+    console.log("addToCart called");
    try{
     const taxRate=1.13;
     //get product ID and quantity 
@@ -14,7 +14,7 @@ const addToCart=async(req,res) => {
         return res.status(404).json({error:'Product not found.'});
     }
     //create new cart if user doesnt already have one
-    let cart = await Cart.findOne({user:req.auth._id});
+     let cart = await Cart.findOne({user:req.auth._id});
     if(!cart){
         cart = new Cart({user:req.auth._id, items:[],subtotal:0,total:0});
     }
