@@ -17,7 +17,7 @@ export default function Menu(){
   const location = useLocation();
 
   return (
-  <AppBar position="static">
+  <AppBar position="static" >
     <Toolbar>
       <Typography variant="h6" color="inherit">
         MarketMingle
@@ -28,7 +28,7 @@ export default function Menu(){
         </IconButton>
       </Link>
       <Link to="/users">
-        <Button style={isActive(location, "/users")}>Users</Button>
+        <Button style={isActive(location, "/users")}>PRODUCT</Button>
       </Link>
       {
         !auth.isAuthenticated() && (<span>

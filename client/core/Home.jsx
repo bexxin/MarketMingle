@@ -29,6 +29,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import unicornbikeImg from './../assets/images/unicornbikeImg.jpg';
+import logo  from './../assets/images/logo1.png';
 import { Link } from 'react-router-dom';
    
 
@@ -56,10 +57,10 @@ return (
 
 
 <CardMedia className={classes.media}
-image={unicornbikeImg} title="Unicorn Bicycle"/>
+image={logo} title="Unicorn Bicycle"/>
 <CardContent>
 <Typography variant="body2" component="p"> 
-Welcome to the MERN Skeleton home page.
+Welcome to the MarketMingle home page.
 </Typography> 
 </CardContent>
 </Card> 
