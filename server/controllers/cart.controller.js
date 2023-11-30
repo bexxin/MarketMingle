@@ -57,12 +57,7 @@ const removeFromCart = async (req, res) => {
             }
         }
         await userCart.save();
-         //return message if cart is empty
-        if (userCart.items.length === 0) {
-             await Cart.deleteOne({ user: req.auth._id });
-             return res.status(200).json({ message: 'Your cart is now empty.' });
-         }
-        //return success message if items still in cart after deletion
+         //return message 
         return res.status(200).json({ message: 'Item successfully removed from cart.' });
         
     } catch (err) {
