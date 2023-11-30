@@ -3,6 +3,22 @@ import config from './config/config.js'
 import app from './server/express.js'
 import mongoose from 'mongoose' 
 
+import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+
+
+// Get the __dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files from the "public" directory
+app.use(express.static(join(__dirname, 'public')));
+
+
+
+
 
 mongoose.Promise = global.Promise
 
