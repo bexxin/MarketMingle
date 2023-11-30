@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+nav {
+    background-color: #041b668e;
+    padding: 1em;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 1em;
+    margin: 0 1em;
+    font-weight: bold;
+}
+
+section {
+    padding: 2em;
+}
+
+section h2 {
+    color: #333;
+}
+
+footer {
+    background-color: #1b76dfc2;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+    
+}
+.logo {
+  margin-top: 10px; /* Adjust as needed */
+  background-color: #1b76dfc2;  
+  text-align: center;
+}
+.backgroud-image {
+margin: 0;
+    padding: 0;
+    background-image: url('sportsequipment2.jpeg');
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    height: 100vh; /* 100% viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* Set text color to white for better visibility */
+}
