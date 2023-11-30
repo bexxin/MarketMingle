@@ -13,6 +13,6 @@ router.get('/api/orders/:userId',authController.requireSignin,orderController.ge
 
 router.put('/api/order/:id',authController.requireSignin,orderController.updateOrder);
 
-router.delete('api/orders/:id',authController.requireSignin,orderController.deleteOrder);
+router.delete('/api/orders/:id',authController.requireSignin,orderController.deleteOrder);
 
 export default router;

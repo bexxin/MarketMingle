@@ -5,6 +5,7 @@ import errorHandler from './error.controller.js'
 const createOrder=async(req,res)=>{
     try{
     //get cart
+    console.log("createOrder Called Request Body:", req.body);
     const cart = await Cart.findOne({user:req.auth._id});
     
     const order = new Order({
@@ -14,7 +15,7 @@ const createOrder=async(req,res)=>{
         items:cart.items,
         subtotal:cart.subtotal,
         total:cart.total,
-        status:'Not Processed',
+        status:'Not processed',
         created:Date.now()
     })
     //save order to database & delete cart

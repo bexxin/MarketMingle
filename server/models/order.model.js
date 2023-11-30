@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-const orderItemSchema = new mongoose.Schema({
-    product:{type:mongoose.Schema.Types.ObjectId, ref:'Product', required:true},
-    quantity:{type:Number, required:true}
-})
+
+
 const orderSchema = new mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId,ref:'User', required: true},
     cart:{type:mongoose.Schema.Types.ObjectId,ref:'Cart',required:true},
@@ -12,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         Province: {type: String,required:'Province is required'},
         PostalCode: {type: String, required: 'Postal Code is required'}
       },
-    items:[orderItemSchema],
+    items:[{type:mongoose.Schema.Types.ObjectId,ref:'CartItem'}],
     subtotal:{type:Number,required:true},
     total:{type:Number,required:true},
     created:{type:Date,default:Date.now},
