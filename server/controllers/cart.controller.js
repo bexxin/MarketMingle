@@ -1,72 +1,73 @@
 import Cart from '../models/cart.model.js';
+import CartItem from '../models/cartItem.model.js';
 import Product from '../models/product.model.js';
-import errorHandler from './error.controller.js'
-//Create/update cart-logic combined, cart is created if user adds item and no cart exists
-const addToCart=async(req,res) => {
-    console.log("addToCart called");
-   try{
-    const taxRate=1.13;
-    //get product ID and quantity 
-    const {productId, quantity} = req.body
-    //Get product based on id
-    const product = await Product.findById(productId);
-    if(!product){
-        return res.status(404).json({error:'Product not found.'});
+import errorHandler from './error.controller.js';
+//find existing cart or create new cart
+const findOrCreateCart = async (userId) => {
+    //populate cartitem with product document
+    let cart = await Cart.findOne({ user: userId }).populate('items.product');
+    if (!cart) {
+        cart = new Cart({ user: userId, items: [], subtotal: 0, total: 0 });
+        await cart.save();
     }
-    //create new cart if user doesnt already have one
-     let cart = await Cart.findOne({user:req.auth._id});
-    if(!cart){
-        cart = new Cart({user:req.auth._id, items:[],subtotal:0,total:0});
+    return cart;
+};
+
+const addToCart = async (req, res) => {
+    try {
+        const taxRate = 1.13;
+        const { productId, quantity } = req.body;
+
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found.' });
+        }
+        //find/create user cart
+        const userCart = await findOrCreateCart(req.auth._id);
+        //update quantity if product already in cart
+        console.log("userCart:",userCart);
+        console.log("userCart.items:", userCart.items);
+        
+        //create new cart item 
+        const newCartItem = new CartItem({ product: productId, quantity });
+        userCart.items.push(newCartItem);
+        
+        //update cart totals
+        userCart.subtotal += product.price * quantity;
+        userCart.total = userCart.subtotal * taxRate;
+        //save to database
+        await userCart.save();
+
+        return res.status(200).json({ message: 'Product successfully added to cart.', cart: userCart });
+    } catch (err) {
+        return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
     }
-    //update quantity if product already in cart
-    const existingItem = cart.items.find(item=>item.product.equals(productId));
-    if(existingItem){
-        existingItem.quantity += quantity;
-    }else{
-        //create new cart item if not already in cart
-        const newCartItem=new CartItem({product:productId,quantity});
-        //add to items array
-        cart.items.push(newCartItem);
+};
+
+const removeFromCart = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        //find user's cart
+        const userCart = await findOrCreateCart(req.auth._id);
+        
+        for(let i = 0; i < userCart.items.length; i++){
+            if (userCart.items[i].ObjectId.equals(productId)){
+                userCart.items.splice(i,1)
+                break;
+            }
+        }
+        await userCart.save();
+         //return message if cart is empty
+        if (userCart.items.length === 0) {
+             await Cart.deleteOne({ user: req.auth._id });
+             return res.status(200).json({ message: 'Your cart is now empty.' });
+         }
+        //return success message if items still in cart after deletion
+        return res.status(200).json({ message: 'Item successfully removed from cart.' });
+        
+    } catch (err) {
+        return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
     }
-    //update totals
-    cart.subtotal += product.price*quantity;
-    cart.total=cart.subtotal * taxRate;
-    //save cart to database
-    await cart.save();
-    return res.status(200).json({message:"Product successfully added to cart."})
-   }catch(err){
-    return res.status(400).json({error: errorHandler.getErrorMessage(err)});
-   }
-} 
-//Update/delete Cart- logic combined, cart is deleted when empty
-const removeFromCart=async(req,res)=>{
-    try{
-    const{productId}=req.params;
-    //Find user's cart
-    const cart = await Cart.findOne({user:req.auth._id});
-    //get index of item in the items array
-    const itemIndex = cart.items.findIndex(item => item.product.equals(productId));
-    //remove product from items array
-    cart.items.splice(itemIndex,1)
-    //save updated cart
-    await cart.save();
-    //Delete cart if it is empty
-    if(cart.items.length ===0){
-        await Cart.deleteOne({user:req.auth._id});
-        return res.status(200).json({message:"Your cart is now empty."});
-    } 
-    
-    return res.status(200).json({message:"Item successfully removed from cart."});
-       
+};
 
-    }catch(err){
-        return res.status(400).json({error:errorHandler.getErrorMessage(err)});
-    }
-}
-export default {addToCart,removeFromCart};
-
-
-
-
-
-
+export default { addToCart, removeFromCart };
