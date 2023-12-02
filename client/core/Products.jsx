@@ -5,6 +5,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import BaseballImg from './../assets/images/baseball.jpg';
+import Button from '@material-ui/core/Button'
+import { CardActions } from '@material-ui/core';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -28,6 +30,10 @@ const useStyles = makeStyles(theme => ({
       minHeight: 100,
       minWidth:100,
     },
+    cardActions:{
+        display:'flex',
+        justifyContent: 'center'
+    }
   }));
   
   export default function Home(){ 
@@ -46,6 +52,9 @@ const useStyles = makeStyles(theme => ({
   </Typography> 
   <Typography component="h5">Price: 30.99</Typography>
   </CardContent>
+  <CardActions className={classes.cardActions}>
+  <Button color="primary" variant="contained">Add To Cart</Button>
+  </CardActions>
   </Card> 
   )
   }
