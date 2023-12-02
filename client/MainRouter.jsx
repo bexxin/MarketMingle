@@ -43,22 +43,22 @@ import Users from './user/Users.jsx'
 import Signup from './user/Signup.jsx'
 import Signin from './lib/Signin.jsx'
 import Profile from './user/Profile.jsx'
+import Products from "./core/Products.jsx"
 import Switch from 'react'
 import PrivateRoute from './lib/PrivateRoute.jsx'
 import EditProfile from './user/EditProfile.jsx'
 import Menu from './core/Menu' 
+
 function MainRouter() {
         return (
           <div>
-      <Menu/>
-          
-               
-                        
+      <Menu/>                        
                         <Routes>
   <Route path="/" element={<Home />} /> 
   <Route path="/users" element={<Users />} />
   <Route path="/signup" element={<Signup />} />
   <Route path="/signin" element={<Signin />} />
+  <Route path="/products" element={<Products />} /> 
   <Route
     path="/user/edit/:userId"
     element={

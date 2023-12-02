@@ -28,7 +28,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import unicornbikeImg from './../assets/images/unicornbikeImg.jpg';
+import MarketMingleBannerIMG from './../assets/images/MarketMingleBanner.jpg';
 import { Link } from 'react-router-dom';
    
 
@@ -56,37 +56,16 @@ return (
 
 
 <CardMedia className={classes.media}
-image={unicornbikeImg} title="Unicorn Bicycle"/>
+image={MarketMingleBannerIMG} title="Sports Equipment"/>
 <CardContent>
 <Typography variant="body2" component="p"> 
-Welcome to the MERN Skeleton home page.
+Welcome to the Market Mingle Marketplace!
+Buy new and used Sports Equipment.
 </Typography> 
 </CardContent>
 </Card> 
 )
 }
 
-/*const MyComponent = () => {
-  const classes = useStyles();
 
-  return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="h6" className={classes.title}>
-          Card Title
-        </Typography>
-        <CardMedia
-          className={classes.media}
-          image={unicornbikeImg}
-          title="Unicorn Bike"
-        />
-        <Typography variant="body2" component="p">
-          Card content goes here.
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
-
-export default MyComponent;*/
 

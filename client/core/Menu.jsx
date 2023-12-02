@@ -12,7 +12,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 const isActive = (location, path) => {
   return location.pathname === path ? { color: '#ff4081' } : { color: '#ffffff' };
 };
+
+
 export default function Menu(){ 
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,9 +30,15 @@ export default function Menu(){
           <HomeIcon/>
         </IconButton>
       </Link>
+
+    <Link to="/products">
+      <Button style={isActive(location, "/products")}>Products</Button>
+    </Link>
+
       <Link to="/users">
         <Button style={isActive(location, "/users")}>Users</Button>
       </Link>
+
       {
         !auth.isAuthenticated() && (<span>
           <Link to="/signup">
@@ -44,6 +53,9 @@ export default function Menu(){
       }
       {
         auth.isAuthenticated() && (<span>
+          <Link to={"/api/products" + auth.isAuthenticated().user_id}>
+            <Button style={isActive(location, "/api/products")}>My Cart</Button>
+          </Link>
           <Link to={"/user/" + auth.isAuthenticated().user._id}>
             <Button style={isActive(location, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
           </Link>
